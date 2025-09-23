@@ -25,6 +25,7 @@ public class GroupAction extends AbstractSelectedAction {
 
     private static final long serialVersionUID = 1L;
     public static final String ID = "edit.groupSelection";
+    public static final String DRAW_LABELS = "org.jhotdraw.draw.Labels";
     private CompositeFigure prototype;
     /**
      * If this variable is true, this action groups figures.
@@ -48,7 +49,7 @@ public class GroupAction extends AbstractSelectedAction {
         this.prototype = prototype;
         this.isGroupingAction = isGroupingAction;
         ResourceBundleUtil labels
-                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+                = ResourceBundleUtil.getBundle(DRAW_LABELS);
         labels.configureAction(this, ID);
         updateEnabledState();
     }
@@ -87,7 +88,7 @@ public class GroupAction extends AbstractSelectedAction {
                     @Override
                     public String getPresentationName() {
                         ResourceBundleUtil labels
-                                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+                                = ResourceBundleUtil.getBundle(DRAW_LABELS);
                         return labels.getString("edit.groupSelection.text");
                     }
 
@@ -122,7 +123,7 @@ public class GroupAction extends AbstractSelectedAction {
                     @Override
                     public String getPresentationName() {
                         ResourceBundleUtil labels
-                                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+                                = ResourceBundleUtil.getBundle(DRAW_LABELS);
                         return labels.getString("edit.ungroupSelection.text");
                     }
 
