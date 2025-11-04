@@ -47,10 +47,10 @@ public class SplitAction extends UngroupAction {
     @SuppressWarnings("unchecked")
     @Override
     public Collection<Figure> ungroupFigures(DrawingView view, CompositeFigure group) {
-        LinkedList<Figure> figures = new LinkedList<Figure>(group.getChildren());
+        LinkedList<Figure> figures = new LinkedList<>(group.getChildren());
         view.clearSelection();
         group.basicRemoveAllChildren();
-        LinkedList<Figure> paths = new LinkedList<Figure>();
+        LinkedList<Figure> paths = new LinkedList<>();
         for (Figure f : figures) {
             ODGPathFigure path = new ODGPathFigure();
             path.removeAllChildren();

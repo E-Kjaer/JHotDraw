@@ -8,9 +8,17 @@
 package org.jhotdraw.draw.action;
 
 import org.jhotdraw.draw.figure.CompositeFigure;
+import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.GroupFigure;
 import org.jhotdraw.draw.*;
 import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.undo.AbstractUndoableEdit;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoableEdit;
+import java.awt.event.ActionEvent;
+import java.util.LinkedList;
 
 /**
  * UngroupAction.
@@ -18,10 +26,11 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * @author Werner Randelshofer
  * @version $Id$
  */
-public class UngroupAction extends GroupAction {
+public class UngroupAction extends GroupBaseAction {
 
     private static final long serialVersionUID = 1L;
     public static final String ID = "edit.ungroupSelection";
+    public static final String DRAW_LABELS = "org.jhotdraw.draw.Labels";
     /**
      * Creates a new instance.
      */
@@ -31,16 +40,68 @@ public class UngroupAction extends GroupAction {
      * Creates a new instance.
      */
     public UngroupAction(DrawingEditor editor) {
-        super(editor, new GroupFigure(), false);
-        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
+        this(editor, new GroupFigure());
+    }
+
+    public UngroupAction(DrawingEditor editor, CompositeFigure prototype) {
+        super(editor);
+        this.prototype = prototype;
+        ResourceBundleUtil labels = ResourceBundleUtil.getBundle(DRAW_LABELS);
         labels.configureAction(this, ID);
         updateEnabledState();
     }
 
-    public UngroupAction(DrawingEditor editor, CompositeFigure prototype) {
-        super(editor, prototype, false);
-        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-        labels.configureAction(this, ID);
-        updateEnabledState();
+    @Override
+    protected void updateEnabledState() {
+        if (getView() != null) {
+            setEnabled(canUngroup());
+        } else {
+            setEnabled(false);
+        }
+    }
+
+    protected boolean canUngroup() {
+        return getView() != null
+                && getView().getSelectionCount() == 1
+                && prototype != null
+                && getView().getSelectedFigures().iterator().next().getClass().equals(
+                prototype.getClass());
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (canUngroup()) {
+            final DrawingView view = getView();
+            final CompositeFigure group = (CompositeFigure) getView().getSelectedFigures().iterator().next();
+            final LinkedList<Figure> ungroupedFigures = new LinkedList<>();
+            UndoableEdit edit = createUngroupEdit(view, group, ungroupedFigures);
+            ungroupedFigures.addAll(ungroupFigures(view, group));
+            fireUndoableEditHappened(edit);
+        }
+    }
+
+    private UndoableEdit createUngroupEdit(DrawingView view, CompositeFigure group, LinkedList<Figure> ungroupedFigures) {
+        return new AbstractUndoableEdit() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public String getPresentationName() {
+                ResourceBundleUtil labels
+                        = ResourceBundleUtil.getBundle(DRAW_LABELS);
+                return labels.getString("edit.ungroupSelection.text");
+            }
+
+            @Override
+            public void redo() throws CannotRedoException {
+                super.redo();
+                ungroupFigures(view, group);
+            }
+
+            @Override
+            public void undo() throws CannotUndoException {
+                groupFigures(view, group, ungroupedFigures);
+                super.undo();
+            }
+        };
     }
 }
