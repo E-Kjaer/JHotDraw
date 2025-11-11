@@ -15,6 +15,7 @@ public abstract class GroupBaseAction extends AbstractSelectedAction {
 
     public Collection<Figure> ungroupFigures(DrawingView view, CompositeFigure group) {
         LinkedList<Figure> figures = new LinkedList<>(group.getChildren());
+        assert view != null;
         view.clearSelection();
         group.basicRemoveAllChildren();
         view.getDrawing().basicAddAll(view.getDrawing().indexOf(group), figures);
@@ -24,6 +25,7 @@ public abstract class GroupBaseAction extends AbstractSelectedAction {
     }
 
     public void groupFigures(DrawingView view, CompositeFigure group, Collection<Figure> figures) {
+        assert view != null;
         Collection<Figure> sorted = view.getDrawing().sort(figures);
         int index = view.getDrawing().indexOf(sorted.iterator().next());
         view.getDrawing().basicRemoveAll(figures);
