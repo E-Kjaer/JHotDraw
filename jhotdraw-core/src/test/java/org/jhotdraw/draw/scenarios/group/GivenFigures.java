@@ -31,7 +31,7 @@ public class GivenFigures extends Stage<GivenFigures> {
         editor.setActiveView(view);
     }
 
-    public GivenFigures initialized_system() {
+    public GivenFigures an_initialized_system() {
         setup();
         return this;
     }
