@@ -5,9 +5,9 @@ import org.junit.Test;
 
 public class GroupActionScenarioTest extends ScenarioTest<GivenFigures, WhenGroup, ThenGroup> {
     @Test
-    public void group_two_figures_should_group() {
+    public void grouping_two_figures_should_group() {
         given()
-                .initialized_system()
+                .an_initialized_system()
                 .and()
                 .$_diamond_figures(2);
 
