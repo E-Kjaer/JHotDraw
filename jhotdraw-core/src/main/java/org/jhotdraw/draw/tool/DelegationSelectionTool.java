@@ -187,14 +187,7 @@ public class DelegationSelectionTool extends SelectionTool {
         }
     }
 
-    protected void showPopupMenu(Figure figure, Point p, Component c) {
-        if (DEBUG) {
-            System.out.println("DelegationSelectionTool.showPopupMenu " + figure);
-        }
-        JPopupMenu menu = new JPopupMenu();
-        popupMenu = menu;
-        JMenu submenu = null;
-        String submenuName = null;
+    private LinkedList<Action> createPopupActions(Figure figure, Point p){
         LinkedList<Action> popupActions = new LinkedList<>();
         if (figure != null) {
             LinkedList<Action> figureActions = new LinkedList<>(
@@ -212,7 +205,16 @@ public class DelegationSelectionTool extends SelectionTool {
             popupActions.add(null);
         }
         popupActions.addAll(drawingActions);
+        return popupActions;
+    }
+
+    private JPopupMenu buildPopupMenu(LinkedList<Action> popupActions){
+        JPopupMenu menu = new JPopupMenu();
+        popupMenu = menu;
+        JMenu submenu = null;
+        String submenuName = null;
         HashMap<Object, ButtonGroup> buttonGroups = new HashMap<>();
+
         for (Action a : popupActions) {
             if (a != null && a.getValue(ActionUtil.SUBMENU_KEY) != null) {
                 if (submenuName == null || !submenuName.equals(a.getValue(ActionUtil.SUBMENU_KEY))) {
@@ -254,6 +256,17 @@ public class DelegationSelectionTool extends SelectionTool {
                 }
             }
         }
+        return menu;
+    }
+
+    protected void showPopupMenu(Figure figure, Point p, Component c) {
+        if (DEBUG) {
+            System.out.println("DelegationSelectionTool.showPopupMenu " + figure);
+        }
+
+        LinkedList<Action> popupActions = createPopupActions(figure, p);
+        JPopupMenu menu = buildPopupMenu(popupActions);
+
         menu.show(c, p.x, p.y);
     }
 
