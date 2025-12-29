@@ -189,23 +189,18 @@ public class DelegationSelectionTool extends SelectionTool {
 
     private LinkedList<Action> createPopupActions(Figure figure, Point p){
         LinkedList<Action> popupActions = new LinkedList<>();
-
-        if (figure == null){
-            popupActions.addAll(drawingActions);
-            return popupActions;
+        if (figure != null) {
+            LinkedList<Action> figureActions = new LinkedList<>(
+                    figure.getActions(viewToDrawing(p)));
+            if (popupActions.size() != 0 && figureActions.size() != 0) {
+                popupActions.add(null);
+            }
+            popupActions.addAll(figureActions);
+            if (popupActions.size() != 0 && selectionActions.size() != 0) {
+                popupActions.add(null);
+            }
+            popupActions.addAll(selectionActions);
         }
-
-        LinkedList<Action> figureActions = new LinkedList<>(
-                figure.getActions(viewToDrawing(p)));
-        if (popupActions.size() != 0 && figureActions.size() != 0) {
-            popupActions.add(null);
-        }
-        popupActions.addAll(figureActions);
-        if (popupActions.size() != 0 && selectionActions.size() != 0) {
-            popupActions.add(null);
-        }
-        popupActions.addAll(selectionActions);
-
         if (popupActions.size() != 0 && drawingActions.size() != 0) {
             popupActions.add(null);
         }
@@ -268,8 +263,10 @@ public class DelegationSelectionTool extends SelectionTool {
         if (DEBUG) {
             System.out.println("DelegationSelectionTool.showPopupMenu " + figure);
         }
+
         LinkedList<Action> popupActions = createPopupActions(figure, p);
         JPopupMenu menu = buildPopupMenu(popupActions);
+
         menu.show(c, p.x, p.y);
     }
 
