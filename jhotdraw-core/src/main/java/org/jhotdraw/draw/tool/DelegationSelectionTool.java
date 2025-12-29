@@ -197,6 +197,7 @@ public class DelegationSelectionTool extends SelectionTool {
         target.addAll(toAdd);
     }
 
+
     private LinkedList<Action> createPopupActions(Figure figure, Point p){
         LinkedList<Action> popupActions = new LinkedList<>();
 
@@ -208,33 +209,24 @@ public class DelegationSelectionTool extends SelectionTool {
         return popupActions;
     }
 
-    private String updateSubmenuName(Action a, String submenuName){
-        if (a != null && a.getValue(ActionUtil.SUBMENU_KEY) != null) {
-            if (submenuName == null || !submenuName.equals(a.getValue(ActionUtil.SUBMENU_KEY))) {
-                submenuName = (String) a.getValue(ActionUtil.SUBMENU_KEY);
-            }
-        } else {
-            submenuName = null;
-        }
-        return submenuName;
-    }
-
     private JPopupMenu buildPopupMenu(LinkedList<Action> popupActions){
         JPopupMenu menu = new JPopupMenu();
         popupMenu = menu;
-        JMenu submenu;
+        JMenu submenu = null;
         String submenuName = null;
         HashMap<Object, ButtonGroup> buttonGroups = new HashMap<>();
 
         for (Action a : popupActions) {
-            submenuName = updateSubmenuName(a, submenuName);
-            if (submenuName != null){
-                submenu = new JMenu(submenuName);
-                menu.add(submenu);
+            if (a != null && a.getValue(ActionUtil.SUBMENU_KEY) != null) {
+                if (submenuName == null || !submenuName.equals(a.getValue(ActionUtil.SUBMENU_KEY))) {
+                    submenuName = (String) a.getValue(ActionUtil.SUBMENU_KEY);
+                    submenu = new JMenu(submenuName);
+                    menu.add(submenu);
+                }
             } else {
+                submenuName = null;
                 submenu = null;
             }
-
             if (a == null) {
                 if (submenu != null) {
                     submenu.addSeparator();
