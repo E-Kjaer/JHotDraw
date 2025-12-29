@@ -235,6 +235,25 @@ public class DelegationSelectionTool extends SelectionTool {
         }
     }
 
+    private AbstractButton createButton(Action a, Map<Object, ButtonGroup> buttonGroups){
+        if (a.getValue(ActionUtil.BUTTON_GROUP_KEY) != null) {
+            ButtonGroup bg = buttonGroups.get(a.getValue(ActionUtil.BUTTON_GROUP_KEY));
+            if (bg == null) {
+                bg = new ButtonGroup();
+                buttonGroups.put(a.getValue(ActionUtil.BUTTON_GROUP_KEY), bg);
+            }
+            JRadioButtonMenuItem button = new JRadioButtonMenuItem(a);
+            bg.add(button);
+            button.setSelected(a.getValue(ActionUtil.SELECTED_KEY) == Boolean.TRUE);
+            return button;
+        } else if (a.getValue(ActionUtil.SELECTED_KEY) != null) {
+            JCheckBoxMenuItem button = new JCheckBoxMenuItem(a);
+            button.setSelected(a.getValue(ActionUtil.SELECTED_KEY) == Boolean.TRUE);
+            return button;
+        }
+        return new JMenuItem(a);
+    }
+
 
     private JPopupMenu buildPopupMenu(LinkedList<Action> popupActions){
         JPopupMenu menu = new JPopupMenu();
@@ -248,22 +267,8 @@ public class DelegationSelectionTool extends SelectionTool {
                 menu.addSeparator();
                 continue;
             }
-            AbstractButton button;
-            if (a.getValue(ActionUtil.BUTTON_GROUP_KEY) != null) {
-                ButtonGroup bg = buttonGroups.get(a.getValue(ActionUtil.BUTTON_GROUP_KEY));
-                if (bg == null) {
-                    bg = new ButtonGroup();
-                    buttonGroups.put(a.getValue(ActionUtil.BUTTON_GROUP_KEY), bg);
-                }
-                button = new JRadioButtonMenuItem(a);
-                bg.add(button);
-                button.setSelected(a.getValue(ActionUtil.SELECTED_KEY) == Boolean.TRUE);
-            } else if (a.getValue(ActionUtil.SELECTED_KEY) != null) {
-                button = new JCheckBoxMenuItem(a);
-                button.setSelected(a.getValue(ActionUtil.SELECTED_KEY) == Boolean.TRUE);
-            } else {
-                button = new JMenuItem(a);
-            }
+            AbstractButton button = createButton(a, buttonGroups);
+
             addButton(menu, submenuState, button);
         }
         return menu;
