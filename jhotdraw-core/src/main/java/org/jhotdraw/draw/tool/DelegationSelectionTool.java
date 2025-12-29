@@ -209,27 +209,36 @@ public class DelegationSelectionTool extends SelectionTool {
         return popupActions;
     }
 
+    private static class SubmenuState {
+        JMenu submenu;
+        String submenuName;
+    }
+
+    private void updateSubmenu(Action a, SubmenuState state, JPopupMenu menu){
+        if (a != null && a.getValue(ActionUtil.SUBMENU_KEY) != null) {
+            if (state.submenuName == null || !state.submenuName.equals(a.getValue(ActionUtil.SUBMENU_KEY))) {
+                state.submenuName = (String) a.getValue(ActionUtil.SUBMENU_KEY);
+                state.submenu = new JMenu(state.submenuName);
+                menu.add(state.submenu);
+            }
+        } else {
+            state.submenuName = null;
+            state.submenu = null;
+        }
+    }
+
+
     private JPopupMenu buildPopupMenu(LinkedList<Action> popupActions){
         JPopupMenu menu = new JPopupMenu();
         popupMenu = menu;
-        JMenu submenu = null;
-        String submenuName = null;
+        SubmenuState submenuState = new SubmenuState();
         HashMap<Object, ButtonGroup> buttonGroups = new HashMap<>();
 
         for (Action a : popupActions) {
-            if (a != null && a.getValue(ActionUtil.SUBMENU_KEY) != null) {
-                if (submenuName == null || !submenuName.equals(a.getValue(ActionUtil.SUBMENU_KEY))) {
-                    submenuName = (String) a.getValue(ActionUtil.SUBMENU_KEY);
-                    submenu = new JMenu(submenuName);
-                    menu.add(submenu);
-                }
-            } else {
-                submenuName = null;
-                submenu = null;
-            }
+            updateSubmenu(a, submenuState, menu);
             if (a == null) {
-                if (submenu != null) {
-                    submenu.addSeparator();
+                if (submenuState.submenu != null) {
+                    submenuState.submenu.addSeparator();
                 } else {
                     menu.addSeparator();
                 }
@@ -250,8 +259,8 @@ public class DelegationSelectionTool extends SelectionTool {
                 } else {
                     button = new JMenuItem(a);
                 }
-                if (submenu != null) {
-                    submenu.add(button);
+                if (submenuState.submenu != null) {
+                    submenuState.submenu.add(button);
                 } else {
                     menu.add(button);
                 }
