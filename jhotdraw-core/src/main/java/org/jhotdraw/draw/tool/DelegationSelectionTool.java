@@ -227,6 +227,15 @@ public class DelegationSelectionTool extends SelectionTool {
         }
     }
 
+    private void addButton(JPopupMenu menu, SubmenuState state, AbstractButton button) {
+        if (state.submenu != null) {
+            state.submenu.add(button);
+        } else {
+            menu.add(button);
+        }
+    }
+
+
     private JPopupMenu buildPopupMenu(LinkedList<Action> popupActions){
         JPopupMenu menu = new JPopupMenu();
         popupMenu = menu;
@@ -255,12 +264,7 @@ public class DelegationSelectionTool extends SelectionTool {
             } else {
                 button = new JMenuItem(a);
             }
-            if (submenuState.submenu != null) {
-                submenuState.submenu.add(button);
-            } else {
-                menu.add(button);
-            }
-
+            addButton(menu, submenuState, button);
         }
         return menu;
     }
