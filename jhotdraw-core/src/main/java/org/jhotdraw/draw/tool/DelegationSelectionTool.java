@@ -227,7 +227,6 @@ public class DelegationSelectionTool extends SelectionTool {
         }
     }
 
-
     private JPopupMenu buildPopupMenu(LinkedList<Action> popupActions){
         JPopupMenu menu = new JPopupMenu();
         popupMenu = menu;
@@ -237,34 +236,31 @@ public class DelegationSelectionTool extends SelectionTool {
         for (Action a : popupActions) {
             updateSubmenu(a, submenuState, menu);
             if (a == null) {
-                if (submenuState.submenu != null) {
-                    submenuState.submenu.addSeparator();
-                } else {
-                    menu.addSeparator();
-                }
-            } else {
-                AbstractButton button;
-                if (a.getValue(ActionUtil.BUTTON_GROUP_KEY) != null) {
-                    ButtonGroup bg = buttonGroups.get(a.getValue(ActionUtil.BUTTON_GROUP_KEY));
-                    if (bg == null) {
-                        bg = new ButtonGroup();
-                        buttonGroups.put(a.getValue(ActionUtil.BUTTON_GROUP_KEY), bg);
-                    }
-                    button = new JRadioButtonMenuItem(a);
-                    bg.add(button);
-                    button.setSelected(a.getValue(ActionUtil.SELECTED_KEY) == Boolean.TRUE);
-                } else if (a.getValue(ActionUtil.SELECTED_KEY) != null) {
-                    button = new JCheckBoxMenuItem(a);
-                    button.setSelected(a.getValue(ActionUtil.SELECTED_KEY) == Boolean.TRUE);
-                } else {
-                    button = new JMenuItem(a);
-                }
-                if (submenuState.submenu != null) {
-                    submenuState.submenu.add(button);
-                } else {
-                    menu.add(button);
-                }
+                menu.addSeparator();
+                continue;
             }
+            AbstractButton button;
+            if (a.getValue(ActionUtil.BUTTON_GROUP_KEY) != null) {
+                ButtonGroup bg = buttonGroups.get(a.getValue(ActionUtil.BUTTON_GROUP_KEY));
+                if (bg == null) {
+                    bg = new ButtonGroup();
+                    buttonGroups.put(a.getValue(ActionUtil.BUTTON_GROUP_KEY), bg);
+                }
+                button = new JRadioButtonMenuItem(a);
+                bg.add(button);
+                button.setSelected(a.getValue(ActionUtil.SELECTED_KEY) == Boolean.TRUE);
+            } else if (a.getValue(ActionUtil.SELECTED_KEY) != null) {
+                button = new JCheckBoxMenuItem(a);
+                button.setSelected(a.getValue(ActionUtil.SELECTED_KEY) == Boolean.TRUE);
+            } else {
+                button = new JMenuItem(a);
+            }
+            if (submenuState.submenu != null) {
+                submenuState.submenu.add(button);
+            } else {
+                menu.add(button);
+            }
+
         }
         return menu;
     }
