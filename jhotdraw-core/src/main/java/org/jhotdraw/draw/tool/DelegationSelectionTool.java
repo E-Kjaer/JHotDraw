@@ -236,19 +236,24 @@ public class DelegationSelectionTool extends SelectionTool {
     }
 
     private AbstractButton createButton(Action a, Map<Object, ButtonGroup> buttonGroups){
-        if (a.getValue(ActionUtil.BUTTON_GROUP_KEY) != null) {
-            ButtonGroup bg = buttonGroups.get(a.getValue(ActionUtil.BUTTON_GROUP_KEY));
+        Object groupKey = a.getValue(ActionUtil.BUTTON_GROUP_KEY);
+        Object selectedValue = a.getValue(ActionUtil.SELECTED_KEY);
+
+        if (groupKey != null) {
+            ButtonGroup bg = buttonGroups.get(groupKey);
             if (bg == null) {
                 bg = new ButtonGroup();
-                buttonGroups.put(a.getValue(ActionUtil.BUTTON_GROUP_KEY), bg);
+                buttonGroups.put(groupKey, bg);
             }
+
             JRadioButtonMenuItem button = new JRadioButtonMenuItem(a);
             bg.add(button);
-            button.setSelected(a.getValue(ActionUtil.SELECTED_KEY) == Boolean.TRUE);
+            button.setSelected(selectedValue == Boolean.TRUE);
             return button;
-        } else if (a.getValue(ActionUtil.SELECTED_KEY) != null) {
+
+        } else if (selectedValue != null) {
             JCheckBoxMenuItem button = new JCheckBoxMenuItem(a);
-            button.setSelected(a.getValue(ActionUtil.SELECTED_KEY) == Boolean.TRUE);
+            button.setSelected(selectedValue == Boolean.TRUE);
             return button;
         }
         return new JMenuItem(a);
@@ -268,7 +273,6 @@ public class DelegationSelectionTool extends SelectionTool {
                 continue;
             }
             AbstractButton button = createButton(a, buttonGroups);
-
             addButton(menu, submenuState, button);
         }
         return menu;
