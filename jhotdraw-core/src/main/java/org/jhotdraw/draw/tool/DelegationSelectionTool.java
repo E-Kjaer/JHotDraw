@@ -187,24 +187,25 @@ public class DelegationSelectionTool extends SelectionTool {
         }
     }
 
+    private void addActions(LinkedList<Action> target, Collection<Action> toAdd) {
+        if (toAdd == null || toAdd.isEmpty()){
+            return;
+        }
+        if (!target.isEmpty()){
+            target.add(null);
+        }
+        target.addAll(toAdd);
+    }
+
+
     private LinkedList<Action> createPopupActions(Figure figure, Point p){
         LinkedList<Action> popupActions = new LinkedList<>();
+
         if (figure != null) {
-            LinkedList<Action> figureActions = new LinkedList<>(
-                    figure.getActions(viewToDrawing(p)));
-            if (popupActions.size() != 0 && figureActions.size() != 0) {
-                popupActions.add(null);
-            }
-            popupActions.addAll(figureActions);
-            if (popupActions.size() != 0 && selectionActions.size() != 0) {
-                popupActions.add(null);
-            }
-            popupActions.addAll(selectionActions);
+            addActions(popupActions, figure.getActions(viewToDrawing(p)));
+            addActions(popupActions, selectionActions);
         }
-        if (popupActions.size() != 0 && drawingActions.size() != 0) {
-            popupActions.add(null);
-        }
-        popupActions.addAll(drawingActions);
+        addActions(popupActions, drawingActions);
         return popupActions;
     }
 
