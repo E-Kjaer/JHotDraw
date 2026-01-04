@@ -23,6 +23,7 @@ import org.jhotdraw.geom.Geom;
 public class EllipseFigure extends AbstractAttributedFigure {
 
     private static final long serialVersionUID = 1L;
+    private static final double MIN_SIZE = 0.1;
     protected Ellipse2D.Double ellipse;
 
     /**
@@ -77,31 +78,32 @@ public class EllipseFigure extends AbstractAttributedFigure {
         return r;
     }
 
+    private static boolean isDrawable(Ellipse2D.Double e) {
+        return e.width > 0 && e.height > 0;
+    }
+
+
     private Ellipse2D.Double createGrownEllipse(double grow) {
-        Ellipse2D.Double grownEllipse = (Ellipse2D.Double) ellipse.clone();
-        grownEllipse.x -= grow;
-        grownEllipse.y -= grow;
-        grownEllipse.width += grow * 2;
-        grownEllipse.height += grow * 2;
-        return grownEllipse;
+        return new Ellipse2D.Double(
+                ellipse.x - grow,
+                ellipse.y - grow,
+                ellipse.width + grow * 2,
+                ellipse.height + grow * 2
+        );
     }
 
     @Override
     protected void drawFill(Graphics2D g) {
         double grow = AttributeKeys.getPerpendicularFillGrowth(this, AttributeKeys.getScaleFactorFromGraphics(g));
         Ellipse2D.Double r = createGrownEllipse(grow);
-        if (r.width > 0 && r.height > 0) {
-            g.fill(r);
-        }
+        if (isDrawable(r)) g.fill(r);
     }
 
     @Override
     protected void drawStroke(Graphics2D g) {
         double grow = AttributeKeys.getPerpendicularDrawGrowth(this, AttributeKeys.getScaleFactorFromGraphics(g));
         Ellipse2D.Double r = createGrownEllipse(grow);
-        if (r.width > 0 && r.height > 0) {
-            g.draw(r);
-        }
+        if (isDrawable(r)) g.draw(r);
     }
 
     /**
@@ -118,8 +120,8 @@ public class EllipseFigure extends AbstractAttributedFigure {
     public void setBounds(Point2D.Double anchor, Point2D.Double lead) {
         ellipse.x = Math.min(anchor.x, lead.x);
         ellipse.y = Math.min(anchor.y, lead.y);
-        ellipse.width = Math.max(0.1, Math.abs(lead.x - anchor.x));
-        ellipse.height = Math.max(0.1, Math.abs(lead.y - anchor.y));
+        ellipse.width = Math.max(MIN_SIZE, Math.abs(lead.x - anchor.x));
+        ellipse.height = Math.max(MIN_SIZE, Math.abs(lead.y - anchor.y));
     }
 
     /**
@@ -137,6 +139,7 @@ public class EllipseFigure extends AbstractAttributedFigure {
     }
 
     @Override
+    @SuppressWarnings("java:S2975")
     public EllipseFigure clone() {
         EllipseFigure that = (EllipseFigure) super.clone();
         that.ellipse = (Ellipse2D.Double) this.ellipse.clone();
