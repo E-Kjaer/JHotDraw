@@ -64,6 +64,7 @@ public class CopyAction extends AbstractSelectionAction {
         }
         // Note: copying is allowed for disabled components
         if (c != null) {
+            assert(c.getTransferHandler() != null);
             c.getTransferHandler().exportToClipboard(
                     c,
                     ClipboardUtil.getClipboard(),
