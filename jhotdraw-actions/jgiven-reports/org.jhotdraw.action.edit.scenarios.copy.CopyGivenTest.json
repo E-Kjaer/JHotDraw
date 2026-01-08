@@ -1,0 +1,76 @@
+{
+  "className": "org.jhotdraw.action.edit.scenarios.copy.CopyGivenTest",
+  "name": "Copy Given",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.action.edit.scenarios.copy.CopyGivenTest",
+      "testMethodName": "selected_figures_are_copied_to_clipboard",
+      "description": "selected figures are copied to clipboard",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a component with a recording transfer handler",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a component with a recording transfer handler"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 10712000,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "copy is triggered",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "copy is triggered"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 2072209,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the component should export to clipboard",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the component should export to clipboard"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 15006625,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 34062667
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 34062667
+    }
+  ],
+  "tagMap": {}
+}
