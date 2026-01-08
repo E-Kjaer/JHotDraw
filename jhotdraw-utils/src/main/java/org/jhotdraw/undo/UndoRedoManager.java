@@ -22,7 +22,6 @@ import org.jhotdraw.util.*;
  * @version $Id$
  */
 public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManager {
-
     private static final long serialVersionUID = 1L;
     protected PropertyChangeSupport propertySupport = new PropertyChangeSupport(this);
     private static final boolean DEBUG = false;
@@ -147,7 +146,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * Discards all edits.
      */
     @Override
-    public void discardAllEdits() {
+    public synchronized void discardAllEdits() {
         super.discardAllEdits();
         updateActions();
         setHasSignificantEdits(false);
@@ -247,55 +246,46 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
         redoAction.putValue(Action.SHORT_DESCRIPTION, label);
     }
 
-    /**
-     * Undoes the last edit event.
-     * The UndoRedoManager ignores all incoming UndoableEdit events,
-     * while undo is in progress.
-     */
-    @Override
-    public void undo()
-            throws CannotUndoException {
+    private void performUndoRedo(ThrowingRunnable action) throws CannotUndoException, CannotRedoException {
         undoOrRedoInProgress = true;
         try {
-            super.undo();
+            action.run();
         } finally {
             undoOrRedoInProgress = false;
             updateActions();
         }
     }
 
-    /**
-     * Redoes the last undone edit event.
-     * The UndoRedoManager ignores all incoming UndoableEdit events,
-     * while redo is in progress.
-     */
     @Override
-    public void redo()
-            throws CannotUndoException {
-        undoOrRedoInProgress = true;
+    public void undo() throws CannotUndoException {
         try {
-            super.redo();
-        } finally {
-            undoOrRedoInProgress = false;
-            updateActions();
+            performUndoRedo(super::undo);
+        } catch (CannotRedoException e) {
+        }
+    }
+
+    @Override
+    public void redo() throws CannotUndoException {
+        try {
+            performUndoRedo(super::redo);
+        } catch (CannotRedoException e) {
         }
     }
 
     /**
      * Undoes or redoes the last edit event.
-     * The UndoRedoManager ignores all incoming UndoableEdit events,
-     * while undo or redo is in progress.
      */
     @Override
-    public void undoOrRedo()
-            throws CannotUndoException, CannotRedoException {
-        undoOrRedoInProgress = true;
-        try {
-            super.undoOrRedo();
-        } finally {
-            undoOrRedoInProgress = false;
-            updateActions();
-        }
+    public void undoOrRedo() throws CannotUndoException, CannotRedoException {
+        performUndoRedo(super::undoOrRedo);
+    }
+
+    /**
+     * Functional interface that allows throwing both CannotUndoException and CannotRedoException.
+     */
+    @FunctionalInterface
+    private interface ThrowingRunnable {
+        void run() throws CannotUndoException, CannotRedoException;
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

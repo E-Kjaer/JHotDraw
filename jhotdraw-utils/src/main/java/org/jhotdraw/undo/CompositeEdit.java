@@ -37,11 +37,6 @@ public class CompositeEdit extends CompoundEdit {
     private static final long serialVersionUID = 1L;
     private String presentationName;
     private boolean isSignificant;
-    private boolean isVerbose;
-
-    public void setVerbose(boolean b) {
-        isVerbose = b;
-    }
 
     /**
      * Creates a new {@code CompositeEdit} which uses CompoundEdit#getPresentationName()

@@ -1,0 +1,92 @@
+{
+  "className": "org.jhotdraw.undo.scenarios.UndoScenarioTest",
+  "name": "Undo Scenario",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.undo.scenarios.UndoScenarioTest",
+      "testMethodName": "given_edit_when_undo_then_edit_disappears",
+      "description": "given edit when undo then edit disappears",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "initialized manager",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "initialized manager"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 5685600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "i have made an edit",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "i have made an edit"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 45100700,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "i press undo",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "i press undo"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 704800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the edit has disappeared",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the edit has disappeared"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 30200,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 62292600
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 62292600
+    }
+  ],
+  "tagMap": {}
+}
