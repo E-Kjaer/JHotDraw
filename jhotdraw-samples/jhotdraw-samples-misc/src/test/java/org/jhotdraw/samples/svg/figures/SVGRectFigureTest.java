@@ -36,16 +36,16 @@ public class SVGRectFigureTest {
 
         Component component = view.getComponent();
 
-        int x1 = 10;
-        int x2 = 20;
-        int y1 = 10;
-        int y2 = 30;
+        int startX = 10;
+        int endX = 20;
+        int startY = 10;
+        int endY = 30;
 
 
         assertEquals(0, drawing.getChildCount());
-        rectTool.mousePressed(new MouseEvent(component, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, x1,  y1, 1, false));
-        rectTool.mouseDragged(new MouseEvent(component, MouseEvent.MOUSE_DRAGGED, System.currentTimeMillis(), 0, x2,  y2, 1, false));
-        rectTool.mouseReleased(new MouseEvent(component, MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0,  x2,  y2, 1, false));
+        rectTool.mousePressed(new MouseEvent(component, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, startX,  startY, 1, false));
+        rectTool.mouseDragged(new MouseEvent(component, MouseEvent.MOUSE_DRAGGED, System.currentTimeMillis(), 0, endX,  endY, 1, false));
+        rectTool.mouseReleased(new MouseEvent(component, MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0,  endX,  endY, 1, false));
 
         assertEquals(1, drawing.getChildCount());
         Figure rectangle = drawing.getChild(0);
