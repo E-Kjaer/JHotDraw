@@ -35,9 +35,9 @@ public class WhenUserDraws extends Stage<WhenUserDraws> {
 
         Component component = view.getComponent();
 
-        rectTool.mousePressed(new MouseEvent(component, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, (int) x1, (int) y1, 1, false));
-        rectTool.mouseDragged(new MouseEvent(component, MouseEvent.MOUSE_DRAGGED, System.currentTimeMillis(), 0, (int) x2, (int) y2, 1, false));
-        rectTool.mouseReleased(new MouseEvent(component, MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0, (int) x2, (int) y2, 1, false));
+        editor.getTool().mousePressed(new MouseEvent(component, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, (int) x1, (int) y1, 1, false));
+        editor.getTool().mouseDragged(new MouseEvent(component, MouseEvent.MOUSE_DRAGGED, System.currentTimeMillis(), 0, (int) x2, (int) y2, 1, false));
+        editor.getTool().mouseReleased(new MouseEvent(component, MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0, (int) x2, (int) y2, 1, false));
 
         return this;
     }

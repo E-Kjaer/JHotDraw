@@ -29,9 +29,11 @@ public class SVGRectFigureTest {
         editor.add(view);
         editor.setActiveView(view);
         rectTool = new CreationTool(new SVGRectFigure());
-
+        assertNull(editor.getTool());
         editor.setTool(rectTool);
         rectTool.activate(editor);
+        assertEquals(rectTool, editor.getTool());
+
 
 
         Component component = view.getComponent();
@@ -43,9 +45,9 @@ public class SVGRectFigureTest {
 
 
         assertEquals(0, drawing.getChildCount());
-        rectTool.mousePressed(new MouseEvent(component, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, startX,  startY, 1, false));
-        rectTool.mouseDragged(new MouseEvent(component, MouseEvent.MOUSE_DRAGGED, System.currentTimeMillis(), 0, endX,  endY, 1, false));
-        rectTool.mouseReleased(new MouseEvent(component, MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0,  endX,  endY, 1, false));
+        editor.getTool().mousePressed(new MouseEvent(component, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, startX,  startY, 1, false));
+        editor.getTool().mouseDragged(new MouseEvent(component, MouseEvent.MOUSE_DRAGGED, System.currentTimeMillis(), 0, endX,  endY, 1, false));
+        editor.getTool().mouseReleased(new MouseEvent(component, MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0,  endX,  endY, 1, false));
 
         assertEquals(1, drawing.getChildCount());
         Figure rectangle = drawing.getChild(0);
