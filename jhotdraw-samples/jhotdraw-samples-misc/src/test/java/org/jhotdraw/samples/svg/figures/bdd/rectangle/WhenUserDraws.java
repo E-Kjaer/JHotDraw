@@ -3,8 +3,7 @@ package org.jhotdraw.samples.svg.figures.bdd.rectangle;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import org.jhotdraw.draw.*;
-import org.jhotdraw.draw.figure.RectangleFigure;
-import org.jhotdraw.draw.tool.CreationTool;
+
 import org.jhotdraw.draw.tool.Tool;
 import org.jhotdraw.samples.svg.figures.SVGRectFigure;
 
