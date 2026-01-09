@@ -53,19 +53,19 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 19288400,
+              "durationInNanos": 23555500,
               "depth": 0,
               "parentFailed": false
             },
             {
-              "name": "a user selects rectangle",
+              "name": "a user clicks on a rectangle",
               "words": [
                 {
                   "value": "When",
                   "isIntroWord": true
                 },
                 {
-                  "value": "a user selects rectangle"
+                  "value": "a user clicks on a rectangle"
                 },
                 {
                   "value": "15.0",
@@ -83,7 +83,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 10699800,
+              "durationInNanos": 13747800,
               "depth": 0,
               "parentFailed": false
             },
@@ -99,7 +99,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 106800,
+              "durationInNanos": 96500,
               "depth": 0,
               "parentFailed": false
             }
@@ -107,11 +107,11 @@
           "explicitArguments": [],
           "derivedArguments": [],
           "status": "SUCCESS",
-          "durationInNanos": 57493700
+          "durationInNanos": 66708800
         }
       ],
       "casesAsTable": false,
-      "durationInNanos": 57493700
+      "durationInNanos": 66708800
     },
     {
       "className": "org.jhotdraw.samples.svg.figures.bdd.rectangle.RectangleBDDTest",
@@ -136,7 +136,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 4583600,
+              "durationInNanos": 8660100,
               "depth": 0,
               "parentFailed": false
             },
@@ -180,7 +180,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 10801400,
+              "durationInNanos": 29221900,
               "depth": 0,
               "parentFailed": false
             },
@@ -224,7 +224,7 @@
                 }
               ],
               "status": "PASSED",
-              "durationInNanos": 2291700,
+              "durationInNanos": 1169500,
               "depth": 0,
               "parentFailed": false
             }
@@ -232,11 +232,11 @@
           "explicitArguments": [],
           "derivedArguments": [],
           "status": "SUCCESS",
-          "durationInNanos": 20644500
+          "durationInNanos": 40298300
         }
       ],
       "casesAsTable": false,
-      "durationInNanos": 20644500
+      "durationInNanos": 40298300
     }
   ],
   "tagMap": {}

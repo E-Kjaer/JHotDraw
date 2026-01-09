@@ -1,7 +1,13 @@
 package org.jhotdraw.samples.svg.figures;
 
+import org.jhotdraw.draw.*;
+import org.jhotdraw.draw.figure.Figure;
+import org.jhotdraw.draw.tool.CreationTool;
+import org.jhotdraw.draw.tool.Tool;
 import org.junit.Test;
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
@@ -9,18 +15,50 @@ import static org.junit.Assert.*;
 
 public class SVGRectFigureTest {
 
+    DrawingEditor editor = new DefaultDrawingEditor();
+    DrawingView view = new DefaultDrawingView();
+    Drawing drawing = new DefaultDrawing();Tool rectTool;
+
+
 
     // Test fpr checking if you can create a rectangle
     @Test
     public void testCreateRectangleWithCorrectBounds() {
-        SVGRectFigure rectangle = new SVGRectFigure();
-        rectangle.setBounds(new Point2D.Double(10, 10), new Point2D.Double(40, 50));
+
+        view.setDrawing(drawing);
+        editor.add(view);
+        editor.setActiveView(view);
+        rectTool = new CreationTool(new SVGRectFigure());
+
+        editor.setTool(rectTool);
+        rectTool.activate(editor);
+
+
+        Component component = view.getComponent();
+
+        int x1 = 10;
+        int x2 = 20;
+        int y1 = 10;
+        int y2 = 30;
+
+
+        assertEquals(0, drawing.getChildCount());
+        rectTool.mousePressed(new MouseEvent(component, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, x1,  y1, 1, false));
+        rectTool.mouseDragged(new MouseEvent(component, MouseEvent.MOUSE_DRAGGED, System.currentTimeMillis(), 0, x2,  y2, 1, false));
+        rectTool.mouseReleased(new MouseEvent(component, MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0,  x2,  y2, 1, false));
+
+        assertEquals(1, drawing.getChildCount());
+        Figure rectangle = drawing.getChild(0);
+
+        assertTrue(rectangle instanceof SVGRectFigure);
 
         Rectangle2D.Double bounds = rectangle.getBounds();
-        assertEquals(10.0, bounds.x, 0.0);
-        assertEquals(10.0, bounds.y, 0.0);
-        assertEquals(30.0, bounds.width, 0.0);
-        assertEquals(40.0, bounds.height, 0.0);
+
+        assertEquals(10, bounds.getX(), 0.0);
+        assertEquals(10, bounds.getY(), 0.0);
+        assertEquals(10, bounds.getWidth(), 0.0);
+        assertEquals(20, bounds.getHeight(), 0.0);
+
     }
 
 
