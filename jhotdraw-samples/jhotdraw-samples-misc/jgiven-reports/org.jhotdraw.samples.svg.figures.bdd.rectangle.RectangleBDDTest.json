@@ -1,0 +1,243 @@
+{
+  "className": "org.jhotdraw.samples.svg.figures.bdd.rectangle.RectangleBDDTest",
+  "name": "Rectangle BDD",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.samples.svg.figures.bdd.rectangle.RectangleBDDTest",
+      "testMethodName": "selecting_a_drawn_rectangle",
+      "description": "selecting a drawn rectangle",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a rectangle exist",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a rectangle exist"
+                },
+                {
+                  "value": "10.0",
+                  "argumentInfo": {
+                    "argumentName": "x",
+                    "formattedValue": "10.0"
+                  }
+                },
+                {
+                  "value": "10.0",
+                  "argumentInfo": {
+                    "argumentName": "y",
+                    "formattedValue": "10.0"
+                  }
+                },
+                {
+                  "value": "20.0",
+                  "argumentInfo": {
+                    "argumentName": "width",
+                    "formattedValue": "20.0"
+                  }
+                },
+                {
+                  "value": "30.0",
+                  "argumentInfo": {
+                    "argumentName": "height",
+                    "formattedValue": "30.0"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 23555500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a user clicks on a rectangle",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a user clicks on a rectangle"
+                },
+                {
+                  "value": "15.0",
+                  "argumentInfo": {
+                    "argumentName": "x",
+                    "formattedValue": "15.0"
+                  }
+                },
+                {
+                  "value": "15.0",
+                  "argumentInfo": {
+                    "argumentName": "y",
+                    "formattedValue": "15.0"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 13747800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a rectangle is selected",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a rectangle is selected"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 96500,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 66708800
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 66708800
+    },
+    {
+      "className": "org.jhotdraw.samples.svg.figures.bdd.rectangle.RectangleBDDTest",
+      "testMethodName": "drawing_a_rectangle",
+      "description": "drawing a rectangle",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "an empty drawing",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "an empty drawing"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 8660100,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a user drags mouse",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a user drags mouse"
+                },
+                {
+                  "value": "10.0",
+                  "argumentInfo": {
+                    "argumentName": "x1",
+                    "formattedValue": "10.0"
+                  }
+                },
+                {
+                  "value": "10.0",
+                  "argumentInfo": {
+                    "argumentName": "y1",
+                    "formattedValue": "10.0"
+                  }
+                },
+                {
+                  "value": "20.0",
+                  "argumentInfo": {
+                    "argumentName": "x2",
+                    "formattedValue": "20.0"
+                  }
+                },
+                {
+                  "value": "30.0",
+                  "argumentInfo": {
+                    "argumentName": "y2",
+                    "formattedValue": "30.0"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 29221900,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a rectangle is created",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a rectangle is created"
+                },
+                {
+                  "value": "10.0",
+                  "argumentInfo": {
+                    "argumentName": "x",
+                    "formattedValue": "10.0"
+                  }
+                },
+                {
+                  "value": "10.0",
+                  "argumentInfo": {
+                    "argumentName": "y",
+                    "formattedValue": "10.0"
+                  }
+                },
+                {
+                  "value": "10.0",
+                  "argumentInfo": {
+                    "argumentName": "width",
+                    "formattedValue": "10.0"
+                  }
+                },
+                {
+                  "value": "20.0",
+                  "argumentInfo": {
+                    "argumentName": "height",
+                    "formattedValue": "20.0"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1169500,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 40298300
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 40298300
+    }
+  ],
+  "tagMap": {}
+}
