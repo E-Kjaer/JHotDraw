@@ -21,7 +21,7 @@ public class SVGRectFigureTest {
 
 
 
-    // Test fpr checking if you can create a rectangle
+    // Test fpr checking if you can create a rectangle with the creation tool
     @Test
     public void testCreateRectangleWithCorrectBounds() {
 
